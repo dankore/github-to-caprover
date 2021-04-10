@@ -22,9 +22,7 @@ The GitHub Repo branch to deploy
 
 ### `image`
 
-Image to be deployed. It should either exist on server, or it has to be public, or on a private repository that CapRover has access to.
-
-> _NOTE:_ if image is used `branch` will be ignored
+Image to be deployed.
 
 ## Usage
 
