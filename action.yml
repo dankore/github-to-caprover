@@ -1,0 +1,24 @@
+name: 'Deploy to Caprover Using GitHub Actions'
+description: 'Deploys your GitHub Repo to CapRover'
+branding:
+  icon: 'caprover.svg'
+  color: blue
+inputs:
+  server:
+    description: 'The URL to your caprover e.g captain.your-domain.com'
+    required: true
+  password:
+    description: 'Your Caprover login password'
+    required: true
+  appName:
+    description: 'The name of the app on Caprover'
+    required: true
+  branch:
+    description: 'The GitHub Repo branch to deploy'
+    required: false
+  image:
+    description: 'The Docker image to deploy'
+    required: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
