@@ -1,7 +1,7 @@
 name: 'Deploy to Caprover Using GitHub Actions'
 description: 'Deploys your GitHub Repo to CapRover'
 branding:
-  icon: ''
+  icon: 'arrow-right'
   color: orange
 inputs:
   server:
