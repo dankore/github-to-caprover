@@ -27,11 +27,12 @@ Image to be deployed.
 ## Usage
 
 ```
-uses: dankore/action-caprover@v1
-with:
-  server: '${{ secrets.CAPROVER_URL }}'
-  password: '${{ secrets.CAPROVER_PASSWORD }}'
-  appName: '${{ secrets.CAPROVER_APP }}'
-  image: 'YOUR-DOCKER-IMAGE-NAME'
+- name: Deploy to Caprover Using GitHub Actions
+  uses: dankore/github-to-caprover@v.1.0.6
+  with:
+    server: '${{ secrets.CAPROVER_URL }}'
+    password: '${{ secrets.CAPROVER_PASSWORD }}'
+    appName: '${{ secrets.CAPROVER_APP }}'
+    image: 'YOUR-DOCKER-IMAGE-NAME'
 
 ```
