@@ -1,7 +1,13 @@
-FROM node:14
+FROM node:20-slim
 
-RUN yarn global add caprover --prefix /usr/local
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
-COPY run.sh /run.sh
+WORKDIR /app
 
-ENTRYPOINT ["sh", "/run.sh"]
+RUN npm install -g caprover
+
+COPY run.sh /app/run.sh
+
+RUN chmod +x /app/run.sh
+
+ENTRYPOINT ["sh", "/app/run.sh"]
