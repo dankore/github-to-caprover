@@ -1,38 +1,64 @@
-# Deploy to Caprover Using GitHub Actions
+# Deploy to CapRover Using GitHub Actions
 
-Action to deploy application to CapRover server
+This GitHub Action enables automatic deployment of applications to a CapRover server, streamlining continuous deployment workflows. Ensure you have administrative access to the CapRover server and the necessary GitHub repository permissions to implement this action.
 
 ## Inputs
 
-### `server`: required
+Detailed below are the required and optional inputs for the action:
 
-The URL to your caprover e.g captain.your-domain.com
+### `server` (required)
+- **Description:** URL of your CapRover server, such as `captain.your-domain.com`.
+- **Example:** `${{ secrets.CAPROVER_URL }}`
 
-### `password`: required
+### `password` (required)
+- **Description:** Your CapRover login password to authenticate deployment requests.
+- **Example:** `${{ secrets.CAPROVER_PASSWORD }}`
 
-Your Caprover login password
+### `appName` (required)
+- **Description:** The name of the application configured on CapRover to receive deployments.
+- **Example:** `${{ secrets.CAPROVER_APP }}`
 
-### `appName`: required
+### `branch` (optional)
+- **Description:** The GitHub repository branch from which to deploy. Defaults to the repository's main branch if not specified.
+- **Example:** `main`
 
-The name of the app on Caprover
+### `image` (optional)
+- **Description:** The Docker image to be deployed. This can be an image hosted on Docker Hub or another registry.
+- **Example:** `my-docker-image-name`
 
-### `branch`
+## Usage Examples
 
-The GitHub Repo branch to deploy
+Below are examples of how to use the action in your workflows.
 
-### `image`
+### Basic Usage
+Deploy an application using a Docker image specified in the workflow:
 
-Image to be deployed.
-
-## Usage
-
-```
-- name: Deploy to Caprover Using GitHub Actions
+```yaml
+- name: Deploy to CapRover Using GitHub Actions
   uses: dankore/github-to-caprover@v.1.0.6
   with:
     server: '${{ secrets.CAPROVER_URL }}'
     password: '${{ secrets.CAPROVER_PASSWORD }}'
     appName: '${{ secrets.CAPROVER_APP }}'
-    image: 'YOUR-DOCKER-IMAGE-NAME'
-
+    image: 'my-docker-image-name'
 ```
+
+### Advanced Usage with GitHub Container Registry
+For deploying an application using an image from the GitHub Container Registry:
+
+```yaml
+- name: Deploy to CapRover Using GitHub Actions
+  uses: dankore/github-to-caprover@v1.0.9
+  with:
+    server: '${{ secrets.CAPROVER_URL }}'
+    password: '${{ secrets.CAPROVER_PASSWORD }}'
+    appName: '${{ secrets.CAPROVER_APP }}'
+    image: 'ghcr.io/mygithub-username/my-docker-image-name:my-label'
+```
+
+## Security Recommendations
+
+- **Sensitive Data:** Always use GitHub Secrets to store sensitive information such as the server URL, password, and app name to ensure security.
+- **Access Control:** Limit access to the repository containing this workflow to trusted collaborators only.
+
+For further details on setting up and managing deployments with CapRover, consult the [CapRover documentation](https://caprover.com/).
