@@ -35,7 +35,7 @@ Deploy an application using a Docker image specified in the workflow:
 
 ```yaml
 - name: Deploy to CapRover Using GitHub Actions
-  uses: dankore/github-to-caprover@v.1.0.6
+  uses: dankore/github-to-caprover@v1.0.9
   with:
     server: '${{ secrets.CAPROVER_URL }}'
     password: '${{ secrets.CAPROVER_PASSWORD }}'
