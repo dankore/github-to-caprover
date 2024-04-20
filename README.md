@@ -43,7 +43,7 @@ Deploy an application using a Docker image specified in the workflow:
     image: 'my-docker-image-name'
 ```
 
-### Advanced Usage with GitHub Container Registry
+### Using GitHub Container Registry
 For deploying an application using an image from the GitHub Container Registry:
 
 ```yaml
@@ -54,6 +54,45 @@ For deploying an application using an image from the GitHub Container Registry:
     password: '${{ secrets.CAPROVER_PASSWORD }}'
     appName: '${{ secrets.CAPROVER_APP }}'
     image: 'ghcr.io/mygithub-username/my-docker-image-name:my-label'
+```
+
+### Using Docker Hub
+Deploy using an image hosted on Docker Hub:
+
+```yaml
+- name: Deploy to CapRover Using GitHub Actions
+  uses: dankore/github-to-caprover@v1.0.9
+  with:
+    server: '${{ secrets.CAPROVER_URL }}'
+    password: '${{ secrets.CAPROVER_PASSWORD }}'
+    appName: '${{ secrets.CAPROVER_APP }}'
+    image: 'username/my-docker-image-name:latest'
+```
+
+### Using Amazon Elastic Container Registry (ECR)
+Deploy using an image from Amazon ECR:
+
+```yaml
+- name: Deploy to CapRover Using GitHub Actions
+  uses: dankore/github-to-caprover@v1.0.9
+  with:
+    server: '${{ secrets.CAPROVER_URL }}'
+    password: '${{ secrets.CAPROVER_PASSWORD }}'
+    appName: '${{ secrets.CAPROVER_APP }}'
+    image: '123456789012.dkr.ecr.region.amazonaws.com/my-repo-name:tag'
+```
+
+### Using Google Container Registry (GCR)
+Deploy using an image from Google Container Registry:
+
+```yaml
+- name: Deploy to CapRover Using GitHub Actions
+  uses: dankore/github-to-caprover@v1.0.9
+  with:
+    server: '${{ secrets.CAPROVER_URL }}'
+    password: '${{ secrets.CAPROVER_PASSWORD }}'
+    appName: '${{ secrets.CAPROVER_APP }}'
+    image: 'gcr.io/my-project-id/my-image-repo:my-tag'
 ```
 
 ## Security Recommendations
