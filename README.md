@@ -35,7 +35,7 @@ Deploy an application using a Docker image specified in the workflow:
 
 ```yaml
 - name: Deploy to CapRover Using GitHub Actions
-  uses: dankore/github-to-caprover@v1.0.8
+  uses: dankore/github-to-caprover@v1.0.9
   with:
     server: '${{ secrets.CAPROVER_URL }}'
     password: '${{ secrets.CAPROVER_PASSWORD }}'
@@ -48,7 +48,7 @@ For deploying an application using an image from the GitHub Container Registry:
 
 ```yaml
 - name: Deploy to CapRover Using GitHub Actions
-  uses: dankore/github-to-caprover@v1.0.8
+  uses: dankore/github-to-caprover@v1.0.9
   with:
     server: '${{ secrets.CAPROVER_URL }}'
     password: '${{ secrets.CAPROVER_PASSWORD }}'
@@ -61,7 +61,7 @@ Deploy using an image hosted on Docker Hub:
 
 ```yaml
 - name: Deploy to CapRover Using GitHub Actions
-  uses: dankore/github-to-caprover@v1.0.8
+  uses: dankore/github-to-caprover@v1.0.9
   with:
     server: '${{ secrets.CAPROVER_URL }}'
     password: '${{ secrets.CAPROVER_PASSWORD }}'
@@ -74,7 +74,7 @@ Deploy using an image from Amazon ECR:
 
 ```yaml
 - name: Deploy to CapRover Using GitHub Actions
-  uses: dankore/github-to-caprover@v1.0.8
+  uses: dankore/github-to-caprover@v1.0.9
   with:
     server: '${{ secrets.CAPROVER_URL }}'
     password: '${{ secrets.CAPROVER_PASSWORD }}'
@@ -87,7 +87,7 @@ Deploy using an image from Google Container Registry:
 
 ```yaml
 - name: Deploy to CapRover Using GitHub Actions
-  uses: dankore/github-to-caprover@v1.0.8
+  uses: dankore/github-to-caprover@v1.0.9
   with:
     server: '${{ secrets.CAPROVER_URL }}'
     password: '${{ secrets.CAPROVER_PASSWORD }}'
