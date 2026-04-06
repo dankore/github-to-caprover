@@ -1,11 +1,12 @@
-name: 'Deploy to Caprover Using GitHub Actions'
-description: 'Deploys your GitHub Repo to CapRover'
+name: 'Deploy to CapRover Using GitHub Actions'
+author: 'Dan Kore'
+description: 'Deploy Docker images or branches to CapRover from GitHub Actions, with password or app_token support for OTP/2FA setups.'
 branding:
-  icon: 'arrow-right'
-  color: orange
+  icon: 'upload-cloud'
+  color: blue
 inputs:
   server:
-    description: 'The URL to your caprover e.g captain.your-domain.com'
+    description: 'The URL to your CapRover server e.g captain.your-domain.com'
     required: true
   password:
     description: 'Your Caprover login password (ignored when app_token is set; omit password and use app_token for CapRover Pro with OTP/2FA)'
