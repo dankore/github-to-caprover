@@ -8,10 +8,10 @@ inputs:
     description: 'The URL to your caprover e.g captain.your-domain.com'
     required: true
   password:
-    description: 'Your Caprover login password (ignored when app-token is set; omit password and use app-token for CapRover Pro with OTP/2FA)'
+    description: 'Your Caprover login password (ignored when app_token is set; omit password and use app_token for CapRover Pro with OTP/2FA)'
     required: false
     default: ''
-  app-token:
+  app_token:
     description: 'CapRover app token from the Deployment tab. Use this for CapRover Pro when OTP/2FA is enabled instead of password-based deploy.'
     required: false
     default: ''
@@ -27,3 +27,10 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
+  args:
+    - ${{ inputs.server }}
+    - ${{ inputs.password }}
+    - ${{ inputs.app_token }}
+    - ${{ inputs.appName }}
+    - ${{ inputs.branch }}
+    - ${{ inputs.image }}

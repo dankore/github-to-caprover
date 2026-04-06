@@ -10,11 +10,11 @@ Detailed below are the required and optional inputs for the action:
 - **Description:** URL of your CapRover server, such as `captain.your-domain.com`.
 - **Example:** `${{ secrets.CAPROVER_URL }}`
 
-### `password` (required unless `app-token` is set)
-- **Description:** Your CapRover login password to authenticate deployment requests. Omit this when using `app-token` (for example on [CapRover Pro](https://caprover.com/) with two-factor authentication enabled).
+### `password` (required unless `app_token` is set)
+- **Description:** Your CapRover login password to authenticate deployment requests. Omit this when using `app_token` (for example on [CapRover Pro](https://caprover.com/) with two-factor authentication enabled).
 - **Example:** `${{ secrets.CAPROVER_PASSWORD }}`
 
-### `app-token` (optional)
+### `app_token` (optional)
 - **Description:** App token from your app’s **Deployment** tab on CapRover. Use this when OTP/2FA is enabled and password-based `caprover deploy` no longer works. [CapRover documents](https://caprover.com/docs/) recommend app tokens for CI in that case.
 - **Example:** `${{ secrets.CAPROVER_APP_TOKEN }}`
 
@@ -39,22 +39,22 @@ When two-factor authentication is on, deploy with an app token instead of a pass
 
 ```yaml
 - name: Deploy to CapRover Using GitHub Actions
-  uses: dankore/github-to-caprover@v1.1.1
+  uses: dankore/github-to-caprover@v1.2.0
   with:
     server: '${{ secrets.CAPROVER_URL }}'
-    app-token: '${{ secrets.CAPROVER_APP_TOKEN }}'
+    app_token: '${{ secrets.CAPROVER_APP_TOKEN }}'
     appName: '${{ secrets.CAPROVER_APP }}'
     image: 'my-docker-image-name'
 ```
 
-You can create the token in the app’s **Deployment** tab. The workflow is unchanged for everyone else: keep passing `password` and leave `app-token` unset.
+You can create the token in the app’s **Deployment** tab. The workflow is unchanged for everyone else: keep passing `password` and leave `app_token` unset.
 
 ### Basic Usage
 Deploy an application using a Docker image specified in the workflow:
 
 ```yaml
 - name: Deploy to CapRover Using GitHub Actions
-  uses: dankore/github-to-caprover@v1.1.1
+  uses: dankore/github-to-caprover@v1.2.0
   with:
     server: '${{ secrets.CAPROVER_URL }}'
     password: '${{ secrets.CAPROVER_PASSWORD }}'
@@ -67,7 +67,7 @@ For deploying an application using an image from the GitHub Container Registry:
 
 ```yaml
 - name: Deploy to CapRover Using GitHub Actions
-  uses: dankore/github-to-caprover@v1.1.1
+  uses: dankore/github-to-caprover@v1.2.0
   with:
     server: '${{ secrets.CAPROVER_URL }}'
     password: '${{ secrets.CAPROVER_PASSWORD }}'
@@ -80,7 +80,7 @@ Deploy using an image hosted on Docker Hub:
 
 ```yaml
 - name: Deploy to CapRover Using GitHub Actions
-  uses: dankore/github-to-caprover@v1.1.1
+  uses: dankore/github-to-caprover@v1.2.0
   with:
     server: '${{ secrets.CAPROVER_URL }}'
     password: '${{ secrets.CAPROVER_PASSWORD }}'
@@ -93,7 +93,7 @@ Deploy using an image from Amazon ECR:
 
 ```yaml
 - name: Deploy to CapRover Using GitHub Actions
-  uses: dankore/github-to-caprover@v1.1.1
+  uses: dankore/github-to-caprover@v1.2.0
   with:
     server: '${{ secrets.CAPROVER_URL }}'
     password: '${{ secrets.CAPROVER_PASSWORD }}'
@@ -106,7 +106,7 @@ Deploy using an image from Google Container Registry:
 
 ```yaml
 - name: Deploy to CapRover Using GitHub Actions
-  uses: dankore/github-to-caprover@v1.1.1
+  uses: dankore/github-to-caprover@v1.2.0
   with:
     server: '${{ secrets.CAPROVER_URL }}'
     password: '${{ secrets.CAPROVER_PASSWORD }}'

@@ -1,37 +1,37 @@
 #!/bin/sh
-set -e
+set -eu
 
-# GitHub Docker actions set input "app-token" as env INPUT_APP-TOKEN. Shells cannot use $INPUT_APP-TOKEN (hyphen).
-_hyphen_app_token=$(printenv 'INPUT_APP-TOKEN' 2>/dev/null || true)
-INPUT_APP_TOKEN="${INPUT_APP_TOKEN:-${_hyphen_app_token}}"
+# Prefer Docker action positional args (reliable), fallback to INPUT_* env vars.
+SERVER="${1:-${INPUT_SERVER:-}}"
+PASSWORD="${2:-${INPUT_PASSWORD:-}}"
+APP_TOKEN="${3:-${INPUT_APP_TOKEN:-}}"
+APPNAME="${4:-${INPUT_APPNAME:-}}"
+BRANCH="${5:-${INPUT_BRANCH:-}}"
+IMAGE="${6:-${INPUT_IMAGE:-}}"
 
-INPUT_PASSWORD="${INPUT_PASSWORD:-}"
-INPUT_IMAGE="${INPUT_IMAGE:-}"
-INPUT_BRANCH="${INPUT_BRANCH:-}"
-
-if [ -z "${INPUT_SERVER}" ]; then
+if [ -z "${SERVER}" ]; then
   echo "Please add your Caprover URL."
   exit 1
 fi
-if [ -z "${INPUT_APPNAME}" ]; then
+if [ -z "${APPNAME}" ]; then
   echo "Please add your Caprover application name."
   exit 1
 fi
 
-if [ -n "${INPUT_APP_TOKEN}" ]; then
-  if [ -n "${INPUT_IMAGE}" ]; then
-    caprover deploy --caproverUrl "${INPUT_SERVER}" --appToken "${INPUT_APP_TOKEN}" --appName "${INPUT_APPNAME}" -i "${INPUT_IMAGE}"
+if [ -n "${APP_TOKEN}" ]; then
+  if [ -n "${IMAGE}" ]; then
+    caprover deploy --caproverUrl "${SERVER}" --appToken "${APP_TOKEN}" --appName "${APPNAME}" -i "${IMAGE}"
   else
-    caprover deploy --caproverUrl "${INPUT_SERVER}" --appToken "${INPUT_APP_TOKEN}" --appName "${INPUT_APPNAME}" -b "${INPUT_BRANCH}"
+    caprover deploy --caproverUrl "${SERVER}" --appToken "${APP_TOKEN}" --appName "${APPNAME}" -b "${BRANCH}"
   fi
 else
-  if [ -z "${INPUT_PASSWORD}" ]; then
-    echo "Please add your Caprover password, or set app-token for CapRover Pro (OTP) deployments."
+  if [ -z "${PASSWORD}" ]; then
+    echo "Please add your Caprover password, or set app_token for CapRover Pro (OTP) deployments."
     exit 1
   fi
-  if [ -n "${INPUT_IMAGE}" ]; then
-    caprover deploy -h "${INPUT_SERVER}" -p "${INPUT_PASSWORD}" -a "${INPUT_APPNAME}" -i "${INPUT_IMAGE}"
+  if [ -n "${IMAGE}" ]; then
+    caprover deploy -h "${SERVER}" -p "${PASSWORD}" -a "${APPNAME}" -i "${IMAGE}"
   else
-    caprover deploy -h "${INPUT_SERVER}" -p "${INPUT_PASSWORD}" -a "${INPUT_APPNAME}" -b "${INPUT_BRANCH}"
+    caprover deploy -h "${SERVER}" -p "${PASSWORD}" -a "${APPNAME}" -b "${BRANCH}"
   fi
 fi
