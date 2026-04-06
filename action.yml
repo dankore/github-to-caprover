@@ -8,8 +8,13 @@ inputs:
     description: 'The URL to your caprover e.g captain.your-domain.com'
     required: true
   password:
-    description: 'Your Caprover login password'
-    required: true
+    description: 'Your Caprover login password (ignored when app-token is set; omit password and use app-token for CapRover Pro with OTP/2FA)'
+    required: false
+    default: ''
+  app-token:
+    description: 'CapRover app token from the Deployment tab. Use this for CapRover Pro when OTP/2FA is enabled instead of password-based deploy.'
+    required: false
+    default: ''
   appName:
     description: 'The name of the app on Caprover'
     required: true
