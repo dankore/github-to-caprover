@@ -1,7 +1,10 @@
 #!/bin/sh
 set -e
 
-INPUT_APP_TOKEN="${INPUT_APP_TOKEN:-}"
+# GitHub Docker actions set input "app-token" as env INPUT_APP-TOKEN. Shells cannot use $INPUT_APP-TOKEN (hyphen).
+_hyphen_app_token=$(printenv 'INPUT_APP-TOKEN' 2>/dev/null || true)
+INPUT_APP_TOKEN="${INPUT_APP_TOKEN:-${_hyphen_app_token}}"
+
 INPUT_PASSWORD="${INPUT_PASSWORD:-}"
 INPUT_IMAGE="${INPUT_IMAGE:-}"
 INPUT_BRANCH="${INPUT_BRANCH:-}"

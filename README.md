@@ -39,7 +39,7 @@ When two-factor authentication is on, deploy with an app token instead of a pass
 
 ```yaml
 - name: Deploy to CapRover Using GitHub Actions
-  uses: dankore/github-to-caprover@v1.1.0
+  uses: dankore/github-to-caprover@v1.1.1
   with:
     server: '${{ secrets.CAPROVER_URL }}'
     app-token: '${{ secrets.CAPROVER_APP_TOKEN }}'
@@ -54,7 +54,7 @@ Deploy an application using a Docker image specified in the workflow:
 
 ```yaml
 - name: Deploy to CapRover Using GitHub Actions
-  uses: dankore/github-to-caprover@v1.1.0
+  uses: dankore/github-to-caprover@v1.1.1
   with:
     server: '${{ secrets.CAPROVER_URL }}'
     password: '${{ secrets.CAPROVER_PASSWORD }}'
@@ -67,7 +67,7 @@ For deploying an application using an image from the GitHub Container Registry:
 
 ```yaml
 - name: Deploy to CapRover Using GitHub Actions
-  uses: dankore/github-to-caprover@v1.1.0
+  uses: dankore/github-to-caprover@v1.1.1
   with:
     server: '${{ secrets.CAPROVER_URL }}'
     password: '${{ secrets.CAPROVER_PASSWORD }}'
@@ -80,7 +80,7 @@ Deploy using an image hosted on Docker Hub:
 
 ```yaml
 - name: Deploy to CapRover Using GitHub Actions
-  uses: dankore/github-to-caprover@v1.1.0
+  uses: dankore/github-to-caprover@v1.1.1
   with:
     server: '${{ secrets.CAPROVER_URL }}'
     password: '${{ secrets.CAPROVER_PASSWORD }}'
@@ -93,7 +93,7 @@ Deploy using an image from Amazon ECR:
 
 ```yaml
 - name: Deploy to CapRover Using GitHub Actions
-  uses: dankore/github-to-caprover@v1.1.0
+  uses: dankore/github-to-caprover@v1.1.1
   with:
     server: '${{ secrets.CAPROVER_URL }}'
     password: '${{ secrets.CAPROVER_PASSWORD }}'
@@ -106,7 +106,7 @@ Deploy using an image from Google Container Registry:
 
 ```yaml
 - name: Deploy to CapRover Using GitHub Actions
-  uses: dankore/github-to-caprover@v1.1.0
+  uses: dankore/github-to-caprover@v1.1.1
   with:
     server: '${{ secrets.CAPROVER_URL }}'
     password: '${{ secrets.CAPROVER_PASSWORD }}'
