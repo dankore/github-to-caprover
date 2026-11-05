@@ -1,6 +1,10 @@
 # Deploy to CapRover Using GitHub Actions
 
-This GitHub Action enables automatic deployment of applications to a CapRover server, streamlining continuous deployment workflows. Ensure you have administrative access to the CapRover server and the necessary GitHub repository permissions to implement this action.
+A GitHub Action that deploys your app to a [CapRover](https://caprover.com/) server on every push. Point it at a Docker image (GitHub Container Registry, Docker Hub, Amazon ECR, Google Container Registry) or a branch, and it runs the CapRover CLI for you. It supports password login and CapRover app tokens, so it also works when two-factor authentication (OTP) is on.
+
+**Who it's for:** developers who self-host apps on CapRover and want push-to-deploy from GitHub without writing the deploy script themselves. It is used in public repositories by other developers, and it deploys dozens of production sites run by Dankore Software.
+
+**Built with:** a Docker container action (`action.yml`, `Dockerfile`, `run.sh`) on Node.js 20 with the CapRover CLI pinned to 2.3.1 (see [CapRover CLI pin](#caprover-cli-pin)). Releases are tagged (`v1.2.1` is the latest).
 
 ## Inputs
 
@@ -124,3 +128,23 @@ Deploy using an image from Google Container Registry:
 This action installs **`caprover@2.3.1`**. CapRover CLI **`2.4.0+`** crashes on load because Commander rejects a duplicate short flag (`-t` used by both `--tarFile` and `--appToken`). Keep the pin until upstream ships a fix.
 
 For further details on setting up and managing deployments with CapRover, consult the [CapRover documentation](https://caprover.com/).
+
+## Development
+
+```bash
+git clone https://github.com/dankore/github-to-caprover.git
+cd github-to-caprover
+docker build -t github-to-caprover .
+# Arguments: server, password, app_token, appName, branch, image
+docker run --rm github-to-caprover captain.example.com "" "$CAPROVER_APP_TOKEN" my-app "" ghcr.io/me/my-app:latest
+```
+
+To try a change in a real workflow, push it to a branch and use `uses: dankore/github-to-caprover@your-branch`.
+
+## Roadmap
+
+See [ROADMAP.md](./ROADMAP.md).
+
+## License
+
+[MIT](./LICENSE) © Dankore Software LLC
