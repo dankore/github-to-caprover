@@ -20,9 +20,9 @@ fi
 
 if [ -n "${APP_TOKEN}" ]; then
   if [ -n "${IMAGE}" ]; then
-    caprover deploy --caproverUrl "${SERVER}" --appToken "${APP_TOKEN}" --appName "${APPNAME}" -i "${IMAGE}"
+    set -- caprover deploy --caproverUrl "${SERVER}" --appToken "${APP_TOKEN}" --appName "${APPNAME}" -i "${IMAGE}"
   else
-    caprover deploy --caproverUrl "${SERVER}" --appToken "${APP_TOKEN}" --appName "${APPNAME}" -b "${BRANCH}"
+    set -- caprover deploy --caproverUrl "${SERVER}" --appToken "${APP_TOKEN}" --appName "${APPNAME}" -b "${BRANCH}"
   fi
 else
   if [ -z "${PASSWORD}" ]; then
@@ -30,8 +30,32 @@ else
     exit 1
   fi
   if [ -n "${IMAGE}" ]; then
-    caprover deploy -h "${SERVER}" -p "${PASSWORD}" -a "${APPNAME}" -i "${IMAGE}"
+    set -- caprover deploy -h "${SERVER}" -p "${PASSWORD}" -a "${APPNAME}" -i "${IMAGE}"
   else
-    caprover deploy -h "${SERVER}" -p "${PASSWORD}" -a "${APPNAME}" -b "${BRANCH}"
+    set -- caprover deploy -h "${SERVER}" -p "${PASSWORD}" -a "${APPNAME}" -b "${BRANCH}"
   fi
 fi
+
+# The caprover CLI prints "Something bad happened" and still exits 0 when the server refuses a
+# deploy (for example 429 "Another operation still in progress"), so its output decides the
+# result. A busy server is retried a few times; any other error fails the step.
+ATTEMPTS="${CAPROVER_DEPLOY_ATTEMPTS:-4}"
+WAIT="${CAPROVER_DEPLOY_RETRY_SECONDS:-30}"
+LOG=/tmp/caprover-deploy.log
+attempt=1
+while :; do
+  echo 0 > /tmp/caprover-deploy.rc
+  { "$@" || echo $? > /tmp/caprover-deploy.rc; } 2>&1 | tee "$LOG"
+  status="$(cat /tmp/caprover-deploy.rc)"
+  if [ "$status" -eq 0 ] && ! grep -q -i -e "something bad happened" -e "deploy failed" "$LOG"; then
+    exit 0
+  fi
+  if grep -q -i -e "another operation still in progress" -e "429" "$LOG" && [ "$attempt" -lt "$ATTEMPTS" ]; then
+    echo "CapRover is busy with another operation; retrying in ${WAIT}s (attempt $((attempt + 1)) of ${ATTEMPTS})."
+    attempt=$((attempt + 1))
+    sleep "$WAIT"
+    continue
+  fi
+  echo "::error::CapRover deploy of ${APPNAME} failed (see the output above)."
+  exit 1
+done
